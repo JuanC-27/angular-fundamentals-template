@@ -26,8 +26,8 @@ export class CoursesStateFacade {
     select(isSingleCourseLoadingSelector),
   );
   public isSearchingState$: Observable<boolean> = this.store.pipe(select(isSearchingStateSelector));
-  public courses$: Observable<Course[]> = this.store.pipe(select(getCourses));
-  public allCourses$: Observable<Course[]> = this.store.pipe(select(getAllCourses));
+  public courses$: Observable<Course[] | null> = this.store.pipe(select(getCourses));
+  public allCourses$: Observable<Course[] | null> = this.store.pipe(select(getAllCourses));
   public course$: Observable<Course | null> = this.store.pipe(select(getCourse));
   public errorMessage$: Observable<string | null> = this.store.pipe(select(getErrorMessage));
 
