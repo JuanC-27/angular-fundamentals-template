@@ -53,7 +53,7 @@
               (click)="$event.preventDefault(); createAuthor()"
             />
           </div>
-          <span *ngIf="showError(newAuthorGroup?.get('name'))" class="text-danger">
+          <span *ngIf="showError(newAuthorGroup?.get('name') || null)" class="text-danger">
             New author should contain only latin letters and numbers.
           </span>
           <div class="mt-6">
