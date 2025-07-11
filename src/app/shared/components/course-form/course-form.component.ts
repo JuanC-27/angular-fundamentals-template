@@ -44,8 +44,9 @@ export class CourseFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.loadAuthors();
+    // Ensure form is initialized first
     this.initForm();
+    this.loadAuthors();
     if (this.courseData) {
       this.populateForm();
     }
@@ -117,32 +118,32 @@ export class CourseFormComponent implements OnInit {
   }
 
   get f() {
-    return this.courseForm.controls;
+    return this.courseForm?.controls || {};
   }
   get authorsArray(): FormArray {
-    return this.courseForm.get('authors') as FormArray;
+    return this.courseForm?.get('authors') as FormArray;
   }
   get newAuthorGroup(): FormGroup {
-    return this.courseForm.get('newAuthor') as FormGroup;
+    return this.courseForm?.get('newAuthor') as FormGroup;
   }
   get newAuthorControl(): FormControl {
-    return this.newAuthorGroup.get('name') as FormControl;
+    return this.newAuthorGroup?.get('name') as FormControl;
   }
 
   addAuthorToCourse(author: Author) {
     this.courseAuthors.push(author);
     this.availableAuthors = this.availableAuthors.filter((a) => a.id !== author.id);
-    this.authorsArray.push(new FormControl(author));
+    this.authorsArray?.push(new FormControl(author));
   }
 
   removeAuthorFromCourse(author: Author, idx: number) {
     this.availableAuthors.push(author);
     this.courseAuthors = this.courseAuthors.filter((a) => a.id !== author.id);
-    this.authorsArray.removeAt(idx);
+    this.authorsArray?.removeAt(idx);
   }
 
   createAuthor() {
-    const name = this.newAuthorGroup.get('name')?.value.trim();
+    const name = this.newAuthorGroup?.get('name')?.value?.trim();
     if (
       !name ||
       this.availableAuthors.some((a) => a.name === name) ||
@@ -157,7 +158,7 @@ export class CourseFormComponent implements OnInit {
           const newAuthor = response.result;
           this.availableAuthors.push(newAuthor);
           this.allAuthors.push(newAuthor);
-          this.newAuthorGroup.reset();
+          this.newAuthorGroup?.reset();
         }
       },
     });
