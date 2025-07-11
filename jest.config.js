@@ -13,6 +13,7 @@ module.exports = {
     '@app/(.*)$': '<rootDir>/src/app/$1',
     '@shared/(.*)$': '<rootDir>/src/app/shared/$1',
     '@features/(.*)$': '<rootDir>/src/app/features/$1',
+    '^@environments/(.*)$': '<rootDir>/src/environments/$1',
   },
   reporters: [ "default", "jest-junit" ]
 };
