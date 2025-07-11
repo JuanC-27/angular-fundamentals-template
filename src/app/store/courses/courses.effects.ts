@@ -93,7 +93,7 @@ export class CoursesEffects {
         this.coursesService.deleteCourse(action.id).pipe(
           map((response) => {
             if (response.successful) {
-              return CoursesActions.requestAllCourses();
+              return CoursesActions.requestDeleteCourseSuccess({ id: action.id });
             } else {
               return CoursesActions.requestDeleteCourseFail({ error: 'Failed to delete course' });
             }
