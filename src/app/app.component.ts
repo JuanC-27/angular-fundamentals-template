@@ -8,14 +8,14 @@ import {
   Observable,
   Subject,
   Subscription,
-  switchMap,
+  switchMap
 } from 'rxjs';
 import { MockDataService } from './mock-data.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss'],
+  styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit, OnDestroy {
   searchTermByCharacters = new Subject<string>();
@@ -45,7 +45,7 @@ export class AppComponent implements OnInit, OnDestroy {
     // 1.2. Add API call on each user input. Use mockDataService.getCharacters - to make get request.
 
     // 2. Since we don't want to spam our service add filter by input value and do not call API until a user enters at least 3 chars.
-    
+
     // 3. Add debounce to prevent API calls until user stop typing.
 
     this.charactersResults$ = this.searchTermByCharacters.pipe(
@@ -62,7 +62,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
     this.planetAndCharactersResults$ = forkJoin({
       characters: this.mockDataService.getCharacters(),
-      planets: this.mockDataService.getPlatents()
+      planets: this.mockDataService.getPlanets()
     }).pipe(map((results) => [...results.characters, ...results.planets]));
 
     // YOUR CODE ENDS HERE
