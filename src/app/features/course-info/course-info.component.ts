@@ -15,10 +15,6 @@ import { takeUntil, filter } from 'rxjs/operators';
 export class CourseInfoComponent implements OnInit, OnDestroy {
   course: Course = {
     title: '',
-    description: '',
-    creationDate: '',
-    duration: 0,
-    authors: [],
   };
 
   courseId: string = '';

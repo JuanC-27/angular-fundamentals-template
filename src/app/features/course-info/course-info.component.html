@@ -6,11 +6,11 @@
   <div class="title">{{ course.title }}</div>
   <div class="course-info">
     <div class="course-info__description">
-      {{ course.description }}
+      {{ course.description || 'No description available' }}
     </div>
     <div class="course-info__info">
       <div>
-        <b>ID: </b><span class="course-info__info-id">{{ course.id }}</span>
+        <b>ID: </b><span class="course-info__info-id">{{ course.id || 'N/A' }}</span>
       </div>
       <div>
         <b>Duration: </b

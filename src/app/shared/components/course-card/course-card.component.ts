@@ -9,10 +9,6 @@ import { Course } from '@app/interfaces/course.interface';
 export class CourseCardComponent {
   @Input() course: Course = {
     title: '',
-    description: '',
-    creationDate: '',
-    duration: 0,
-    authors: [],
   };
 
   @Input() editable: boolean = false;
