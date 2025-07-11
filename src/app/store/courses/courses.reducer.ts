@@ -96,7 +96,7 @@ export const coursesReducer = createReducer(
   // Delete Course
   on(CoursesActions.requestDeleteCourse, (state) => ({
     ...state,
-    errorMessage: null,
+    errorMessage: "",
   })),
 
   on(CoursesActions.requestDeleteCourseSuccess, (state, { id }) => ({
@@ -113,7 +113,7 @@ export const coursesReducer = createReducer(
   // Edit Course
   on(CoursesActions.requestEditCourse, (state) => ({
     ...state,
-    errorMessage: null,
+    errorMessage: "",
   })),
 
   on(CoursesActions.requestEditCourseSuccess, (state, { course }) => ({
@@ -131,7 +131,7 @@ export const coursesReducer = createReducer(
   // Create Course
   on(CoursesActions.requestCreateCourse, (state) => ({
     ...state,
-    errorMessage: null,
+    errorMessage: "",
   })),
 
   on(CoursesActions.requestCreateCourseSuccess, (state, { course }) => ({
