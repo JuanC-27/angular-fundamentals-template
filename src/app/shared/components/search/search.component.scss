@@ -1,9 +1,24 @@
-.app-search {
-  display: flex;
-  width: 100%;
-  align-items: baseline;
+// .app-search {
+//   display: flex;
+//   width: 100%;
+//   align-items: center;
+//   gap: 16px;
 
-  & input {
-    margin-right: 24px;
-  }
-}
+//   input {
+//     flex: 1;
+//     padding: 8px 12px;
+//     border: 1px solid #ccc;
+//     border-radius: 4px;
+//     font-size: 14px;
+
+//     &:focus {
+//       outline: none;
+//       border-color: #007bff;
+//       box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+//     }
+//   }
+
+//   app-button {
+//     flex-shrink: 0;
+//   }
+// }

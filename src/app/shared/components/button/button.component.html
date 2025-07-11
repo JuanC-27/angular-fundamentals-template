@@ -1,4 +1,35 @@
-<div class="app-button">
-  <!-- Replace the text below with your code -->
-  Button
-</div>
+<!-- Combined icon and text if both are present -->
+<button
+  type="submit"
+  class="app-button"
+  *ngIf="buttonText && mapIcons[iconName]"
+  [disabled]="disabled"
+  [type]="type"
+  (click)="onClick()"
+>
+  <fa-icon [size]="iconSize" [icon]="mapIcons[iconName]" class="icon-margin"></fa-icon>
+  {{ buttonText }}
+</button>
+
+<!-- Only text -->
+<button
+  class="app-button"
+  *ngIf="buttonText && !iconName"
+  [type]="type"
+  [disabled]="disabled"
+  (click)="onClick()"
+>
+  {{ buttonText }}
+</button>
+
+<!-- Only icon -->
+<button
+  type="submit"
+  class="app-button"
+  *ngIf="iconName && !buttonText"
+  [disabled]="disabled"
+  [type]="type"
+  (click)="onClick()"
+>
+  <fa-icon [size]="iconSize" [icon]="mapIcons[iconName]"></fa-icon>
+</button>

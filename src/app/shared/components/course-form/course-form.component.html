@@ -1,55 +1,114 @@
-<!-- Replace ::text:: with your code -->
-<h2>Create / Edit Course</h2>
-<form>
+<!-- Reactive Course Form -->
+<h2 class="text-4xl font-bold">Course Edit/Create Page</h2>
+<form [formGroup]="courseForm" (ngSubmit)="onSubmit()">
   <div class="app-plate">
     <div class="course">
-      <h3>Main Info</h3>
+      <h3 class="text-xl font-bold mb-7">Main Info</h3>
       <div class="form__control">
         <label for="title">Title</label>
-        <!--Use the name `title` for the form control.-->
-        <input type="text" id="title" placeholder="Input text"/>
-        <span id="titleErrorMessage" class="text-danger">Title is required.</span>
+        <input type="text" id="title" formControlName="title" placeholder="Input text" />
+        <span *ngIf="showError(f['title'])" class="text-danger"> Title is required. </span>
       </div>
       <div class="form__control">
         <label for="description">Description</label>
-        <!--Use the name `description` for the form control.-->
         <textarea
           id="description"
-          name="description"
+          formControlName="description"
           placeholder="Input text"
           rows="4"
           cols="5"
         ></textarea>
-        <span id="descriptionErrorMessage" class="text-danger">Description is required.</span>
+        <span *ngIf="showError(f['description'])" class="text-danger">
+          Description is required.
+        </span>
       </div>
-      <div class="separator"></div>
-      <h3>Authors</h3>
+
+      <h3 class="text-xl font-bold mb-7">Duration</h3>
       <div class="form__control">
+        <label for="duration">Duration</label>
         <div class="course__flex">
-          <!--Use the name `author` for the form control.-->
-          <input type="text" id="author" placeholder="Input Author Name"/>
-          <app-button id="createAuthor"></app-button>
-        </div>
-        <span id="authorErrorMessage">New author should contain only latin letters and numbers.</span>
-        <div class="course__authors">
-          <!--Use the name `authors` for the form array.-->
-          ::Authors::
-        </div>
-      </div>
-      <div class="separator"></div>
-      <h3>Duration</h3>
-      <div class="form__control">
-        <div class="course__flex">
-          <!--Use the name `duration` for the form array.-->
-          <input type="number" id="duration" placeholder="Input duration"/>
+          <input type="number" id="duration" formControlName="duration" placeholder="Input text" />
           <div class="course__duration">
-            ::Duration::
+            {{ f['duration'].value | duration }}
           </div>
         </div>
-        <span id="durationErrorMessage" class="text-danger">Duration is required.</span>
+        <span *ngIf="showError(f['duration'])" class="text-danger"> Duration is required. </span>
       </div>
-      <div class="form__action">
-        <app-button></app-button>
+
+      <div class="grid grid-cols-2 gap-10">
+        <div>
+          <h3 class="text-xl font-bold mb-7">Authors</h3>
+          <label for="author">Author Name</label>
+          <div class="course__flex">
+            <input
+              type="text"
+              id="author"
+              [formControl]="newAuthorControl"
+              placeholder="Input text"
+            />
+            <app-button
+              id="createAuthor"
+              type="submit"
+              buttonText="CREATE AUTHOR"
+              (click)="$event.preventDefault(); createAuthor()"
+            />
+          </div>
+          <span *ngIf="showError(newAuthorGroup.get('name'))" class="text-danger">
+            New author should contain only latin letters and numbers.
+          </span>
+          <div class="mt-6">
+            <strong>Authors List</strong>
+            <div class="mt-2 grid grid-cols-4 max-h-[220px] overflow-auto">
+              <ng-container *ngIf="availableAuthors.length; else noAuthors">
+                <div
+                  *ngFor="let author of availableAuthors"
+                  class="course__authors-item max-w-[100px]"
+                >
+                  <p class="overflow-hidden text-ellipsis whitespace-nowrap">
+                    {{ author.name }}
+                  </p>
+                  <app-button
+                    iconName="add"
+                    type="submit"
+                    (click)="$event.preventDefault(); addAuthorToCourse(author)"
+                  />
+                </div>
+              </ng-container>
+              <ng-template #noAuthors>
+                <span style="color: #888">No authors available</span>
+              </ng-template>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <h3>Course Authors</h3>
+          <div class="mt-8 grid grid-cols-4 max-h-[220px] overflow-auto">
+            <ng-container *ngIf="authorsArray.controls.length; else emptyCourseAuthors">
+              <div
+                *ngFor="let authorCtrl of authorsArray.controls; let i = index"
+                class="course__authors-item max-w-[100px]"
+              >
+                <p class="overflow-hidden text-ellipsis whitespace-nowrap">
+                  {{ authorCtrl.value.name }}
+                </p>
+                <app-button
+                  iconName="delete"
+                  type="submit"
+                  (click)="$event.preventDefault(); removeAuthorFromCourse(authorCtrl.value, i)"
+                />
+              </div>
+            </ng-container>
+            <ng-template #emptyCourseAuthors>
+              <span style="color: #888">Author list is empty</span>
+            </ng-template>
+          </div>
+        </div>
+      </div>
+
+      <div class="form__action flex gap-5 justify-end" style="margin-top: 32px">
+        <app-button buttonText="Cancel" (buttonClick)="onCancel()" />
+        <app-button buttonText="Create Course" type="submit" />
       </div>
     </div>
   </div>

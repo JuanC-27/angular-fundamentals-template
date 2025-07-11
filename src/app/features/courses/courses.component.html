@@ -1,0 +1,26 @@
+<!-- CoursesComponent template -->
+<div class="courses-container">
+  <div class="courses-header">
+    <h2 class="text-2xl font-bold">Courses</h2>
+    <div class="flex justify-between items-center mb-4">
+      <app-search placeholder="Enter course name..." (search)="onSearch($event)"></app-search>
+      <app-button *ngIf="isAdmin$ | async" (click)="addNewCourse()" buttonText="Add New Course" />
+    </div>
+  </div>
+
+  <div class="courses-content">
+    <div *ngIf="isLoading$ | async" class="text-center py-4">Loading courses...</div>
+
+    <app-courses-list
+      [courses]="(courses$ | async) || []"
+      [editable]="(isAdmin$ | async) || false"
+      (showCourse)="onShowCourse($event)"
+      (editCourse)="onEditCourse($event)"
+      (deleteCourse)="onDeleteCourse($event)"
+    />
+
+    <div *ngIf="(courses$ | async)?.length === 0 && !(isLoading$ | async)" class="text-center py-4">
+      No courses found.
+    </div>
+  </div>
+</div>

@@ -1,4 +1,10 @@
-<div class="app-header">
-  <img alt="logo" src="assets/logo.svg">
-  <!-- Enter your code here -->
-</div>
+<ng-container *ngIf="isAuthorized$ | async">
+  <div class="app-header">
+    <img alt="logo" src="assets/logo.svg" routerLink="/courses" style="cursor: pointer" />
+
+    <div class="flex items-center gap-5">
+      <p>{{ name$ | async }}</p>
+      <app-button buttonText="Logout" (buttonClick)="logout()" />
+    </div>
+  </div>
+</ng-container>

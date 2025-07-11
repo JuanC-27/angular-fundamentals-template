@@ -1,0 +1,11 @@
+<!-- CoursesListComponent template -->
+<div class="courses-list">
+  <ng-container *ngFor="let course of courses">
+    <app-course-card [course]="course" [editable]="editable" (clickOnShow)="onShowCourse(course)">
+      <ng-container *ngIf="editable">
+        <app-button iconName="delete" (click)="onDeleteCourse(course)" />
+        <app-button iconName="edit" (click)="onEditCourse(course)" />
+      </ng-container>
+    </app-course-card>
+  </ng-container>
+</div>

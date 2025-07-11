@@ -1,42 +1,60 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { environment } from '@environments/environment';
+import { Course } from '@app/interfaces/course.interface';
+
+interface ApiResponse<T> {
+  successful: boolean;
+  result: T;
+}
+
+interface Author {
+  id: string;
+  name: string;
+}
 
 @Injectable({
-    providedIn: 'root'
+  providedIn: 'root',
 })
 export class CoursesService {
-    getAll() {
-        // Add your code here
-    }
+  private apiUrl = environment.apiUrl;
 
-    createCourse(course: any) { // replace 'any' with the required interface
-        // Add your code here
-    }
+  constructor(private http: HttpClient) {}
 
-    editCourse(id: string, course: any) { // replace 'any' with the required interface
-        // Add your code here
-    }
+  getAll(): Observable<ApiResponse<Course[]>> {
+    return this.http.get<ApiResponse<Course[]>>(`${this.apiUrl}/courses/all`);
+  }
 
-    getCourse(id: string) {
-        // Add your code here
-    }
+  createCourse(course: Course): Observable<ApiResponse<Course>> {
+    return this.http.post<ApiResponse<Course>>(`${this.apiUrl}/courses/add`, course);
+  }
 
-    deleteCourse(id: string) {
-        // Add your code here
-    }
+  editCourse(id: string, course: Course): Observable<ApiResponse<Course>> {
+    return this.http.put<ApiResponse<Course>>(`${this.apiUrl}/courses/${id}`, course);
+  }
 
-    filterCourses(value: string) {
-        // Add your code here
-    }
+  getCourse(id: string): Observable<ApiResponse<Course>> {
+    return this.http.get<ApiResponse<Course>>(`${this.apiUrl}/courses/${id}`);
+  }
 
-    getAllAuthors() {
-        // Add your code here
-    }
+  deleteCourse(id: string): Observable<ApiResponse<void>> {
+    return this.http.delete<ApiResponse<void>>(`${this.apiUrl}/courses/${id}`);
+  }
 
-    createAuthor(name: string) {
-        // Add your code here
-    }
+  filterCourses(value: string): Observable<ApiResponse<Course[]>> {
+    return this.http.get<ApiResponse<Course[]>>(`${this.apiUrl}/courses/filter?title=${value}`);
+  }
 
-    getAuthorById(id: string) {
-        // Add your code here
-    }
+  getAllAuthors(): Observable<ApiResponse<Author[]>> {
+    return this.http.get<ApiResponse<Author[]>>(`${this.apiUrl}/authors/all`);
+  }
+
+  createAuthor(name: string): Observable<ApiResponse<Author>> {
+    return this.http.post<ApiResponse<Author>>(`${this.apiUrl}/authors/add`, { name });
+  }
+
+  getAuthorById(id: string): Observable<ApiResponse<Author>> {
+    return this.http.get<ApiResponse<Author>>(`${this.apiUrl}/authors/${id}`);
+  }
 }

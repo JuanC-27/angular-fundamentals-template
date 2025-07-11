@@ -1,23 +1,28 @@
 <div class="course-card">
-    <div class="course-card__description">
-      <!-- Replace ::text:: with your code -->
-      <div class="course-card__description-title">::Title::</div>
-      <div class="course-card__description-text">::Description::</div>
+  <div class="course-card__description">
+    <div class="course-card__description-title">{{ course.title }}</div>
+    <div class="course-card__description-text">{{ course.description }}</div>
+  </div>
+  <div class="course-card__info">
+    <div class="course-card__info-text">
+      <div>
+        <strong>Authors: </strong>
+        {{ course.authors.join(', ') }}
+      </div>
+      <div>
+        <strong>Duration: </strong>
+        <span class="course-card__duration">{{ course.duration | duration }}</span>
+      </div>
+      <div>
+        <strong>Created: </strong>
+        <span class="course-card__date">{{ course.creationDate | customDate }}</span>
+      </div>
     </div>
-    <div class="course-card__info">
-        <div class="course-card__info-text">
-            <div>
-              <b>Authors: </b>
-              ::Authors::
-            </div>
-            <div><b>Duration: </b><span class="course-card__duration">::Duration::</span></div>
-            <div><b>Created: </b><span class="course-card__date">::Creation Date::</span></div>
-        </div>
-        <div class="course-card__info-actions">
-            <app-button></app-button>
-            <div class="course-card__buttons">
-                <!--Enter your code here-->
-            </div>
-        </div>
+    <div class="course-card__info-actions flex gap-2 mt-3">
+      <app-button buttonText="Show course" (buttonClick)="onShowCourse()" />
+      <div class="course-card__buttons flex items-center gap-4" *ngIf="editable">
+        <ng-content />
+      </div>
     </div>
+  </div>
 </div>
